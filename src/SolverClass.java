@@ -16,6 +16,7 @@ int[][] board = new int[9][9];
         0 0 0 0 0 0 0 0 0
         0 0 0 0 0 0 0 0 0
         0 0 0 0 0 0 0 0 0
+        
          */
         int[][] board = new int[9][9];
         for (int i = 0; i < 9; i++) { // i is column
