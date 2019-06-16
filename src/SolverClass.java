@@ -6,7 +6,6 @@ int[][] board = new int[9][9];
 
     int[][] setupSudoku() {
         /*
-
         Empty board will look like this
         0 0 0 0 0 0 0 0 0
         0 0 0 0 0 0 0 0 0
