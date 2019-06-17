@@ -1,7 +1,7 @@
 import java.util.stream.IntStream;
 
 public class SolverClass {
-int[][] board = new int[9][9];
+private int[][] board = new int[9][9];
 
 
     int[][] setupSudoku() {
@@ -51,22 +51,17 @@ int[][] board = new int[9][9];
         return true;
     }
 
-    void printBoard() {
-        for (int i = 0; i < 9; i++) {
-            for (int x = 0; x < 9; x++) {
-                System.out.print(board[i][x]);
-            }
-            System.out.println("");
-        }
+    int[][] returnBoard() {
+        return board;
     }
 
-    boolean isValid(int[][] board, int column, int row, int toCheck) {
+    private boolean isValid(int[][] board, int column, int row, int toCheck) {
         if(checkRow(board, row, toCheck) && checkColumn(board, column, toCheck) && checkCell(board, column, row, toCheck)) {
             return true;
         }
         return false;
     }
-    boolean checkCell(int[][] board, int column, int row, int toCheck) {
+    private boolean checkCell(int[][] board, int column, int row, int toCheck) {
         int tmp = 0;
         int subsectionRowStart = (row / 3) * 3;
         int subsectionRowEnd = subsectionRowStart + 3;
@@ -87,7 +82,7 @@ int[][] board = new int[9][9];
 
 
 
-    boolean checkRow(int[][] board, int row, int toCheck) {
+    private boolean checkRow(int[][] board, int row, int toCheck) {
         // give a tmp buffer of 1 match as there is allowed to be 1 in the row
 
         int tmp = 0;
@@ -98,7 +93,7 @@ int[][] board = new int[9][9];
         return true;
     }
 
-    boolean checkColumn(int[][] board, int column, int toCheck) {
+    private boolean checkColumn(int[][] board, int column, int toCheck) {
         int tmp = 0;
         for (int i = 0; i < 9; i++){
             if (board[column][i] == toCheck) tmp++;
