@@ -1,7 +1,7 @@
 import java.awt.event.ActionListener;
 import java.util.stream.IntStream;
 
-public class SolverClass {
+class SolverClass {
 private int[][] board = new int[9][9];
 
 
@@ -57,10 +57,7 @@ private int[][] board = new int[9][9];
     }
 
     private boolean isValid(int[][] board, int column, int row, int toCheck) {
-        if(checkRow(board, row, toCheck) && checkColumn(board, column, toCheck) && checkCell(board, column, row, toCheck)) {
-            return true;
-        }
-        return false;
+        return (checkRow(board, row, toCheck) && checkColumn(board, column, toCheck) && checkCell(board, column, row, toCheck));
     }
     private boolean checkCell(int[][] board, int column, int row, int toCheck) {
         int tmp = 0;

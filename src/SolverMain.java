@@ -27,7 +27,7 @@ public class SolverMain {
         gbc.gridx = 0;
         gbc.gridy = 0;
         Border blackline = BorderFactory.createLineBorder(Color.black);
-        int[] border = {0,0,0,0};
+        int[] border;
 
 
         JFrame frame = new JFrame("Simple Sudoku Solver");
@@ -61,23 +61,19 @@ public class SolverMain {
         JButton jb = new JButton("Solve");
         gbc.gridx = 0;
         gbc.gridwidth = 4;
-        jb.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                loadBoard();
-                ssc.solveBoard(board);
-                solveToGUI();
-            }
+        jb.addActionListener(e -> {
+            loadBoard();
+            ssc.solveBoard(board);
+            solveToGUI();
         });
         panel.add(jb, gbc);
 
         JButton jbC = new JButton("Clear");
         gbc.gridx = 5;
         gbc.gridwidth = 4;
-        jbC.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                clearBoard();
-            }
-        });
+
+        jbC.addActionListener(e -> clearBoard());
+
         panel.add(jbC, gbc);
 
 
@@ -106,6 +102,7 @@ public class SolverMain {
         for (int i = 0; i < 9; i++) { // i is column
             for (int x = 0; x < 9; x++) { // x is row
                 jt[i][x].setText("");
+                jt[i][x].setBackground(Color.white);
             }
         }
 
@@ -129,6 +126,7 @@ public class SolverMain {
                     board[i][x] = 0;
                 } else {
                     board[i][x] = Integer.valueOf(jt[i][x].getText());
+                    jt[i][x].setBackground(Color.green);
                 }
             }
         }
