@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,8 @@ public class SolverMain {
         gbc.gridx = 0;
         gbc.gridy = 0;
         Border blackline = BorderFactory.createLineBorder(Color.black);
+        int[] border = {0,0,0,0};
+
 
         JFrame frame = new JFrame("Simple Sudoku Solver");
         frame.setSize(500,500);
@@ -42,7 +45,10 @@ public class SolverMain {
 
                 jt[i][x] = new JTextField(2 );
                 jt[i][x].setHorizontalAlignment(JTextField.CENTER);
-                jt[i][x].setBorder(BorderFactory.createLineBorder(Color.black));
+                border = getBorderWidth(i, x);
+
+                jt[i][x].setBorder(new MatteBorder(border[0],border[1], border[2], border[3], Color.black));
+
                 panel.add(jt[i][x], gbc);
                 gbc.gridx++;
 
@@ -81,6 +87,19 @@ public class SolverMain {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+    }
+    private static int[] getBorderWidth(int row, int column) {
+
+        int[] tmpBorder = {1,1,1,1};
+
+        if (column == 0) tmpBorder[1] = 3;
+        if (row == 0) tmpBorder[0] = 3;
+        if ((row+1)%3 == 0) tmpBorder[2] = 3;
+        if ((column+1)%3 == 0) tmpBorder[3] = 3;
+
+
+        return tmpBorder;
 
     }
     private static void clearBoard(){
