@@ -8,26 +8,30 @@ import java.awt.event.ActionListener;
 public class SolverMain {
 
     private static int[][] board;
-    private static JTextField[][] jt = new JTextField[9][9];
+    private static JTextField[][] jt;
     private static SolverClass ssc;
+    private static int iLW = 3;
     public static void main(String[] args) {
 
         showGUI();
 
         ssc = new SolverClass();
-        board = ssc.setupSudoku();
-
-       // ssc.solveBoard(board);
-       // ssc.printBoard();
+        board = ssc.setupSudoku(iLW);
 
     }
 
     private static void showGUI() {
+
+        // build the user interface, standard sudoku grid 3x3x9
+
+        int iwLW = iLW*iLW;
+        jt = new JTextField[iwLW][iwLW];
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         Border blackline = BorderFactory.createLineBorder(Color.black);
-        int[] border;
+
 
 
         JFrame frame = new JFrame("Simple Sudoku Solver");
@@ -40,9 +44,11 @@ public class SolverMain {
         gbc.weightx = 0.11;
         gbc.weighty = 0.2;
 
-        for (int i = 0; i < 9; i++) { // i is column
-            for (int x = 0; x < 9; x++) { // x is row
+        // set borders around the boxes, create thicker borders for the individual 3x3 grids
 
+        for (int i = 0; i < iwLW; i++) { // i is column
+            for (int x = 0; x < iwLW; x++) { // x is row
+                int[] border;
                 jt[i][x] = new JTextField(2 );
                 jt[i][x].setHorizontalAlignment(JTextField.CENTER);
                 border = getBorderWidth(i, x);
@@ -87,20 +93,27 @@ public class SolverMain {
     }
     private static int[] getBorderWidth(int row, int column) {
 
+    // function to calculate the border width for each box
+
         int[] tmpBorder = {1,1,1,1};
 
         if (column == 0) tmpBorder[1] = 3;
         if (row == 0) tmpBorder[0] = 3;
-        if ((row+1)%3 == 0) tmpBorder[2] = 3;
-        if ((column+1)%3 == 0) tmpBorder[3] = 3;
+        if ((row+1)%iLW == 0) tmpBorder[2] = 3;
+        if ((column+1)%iLW == 0) tmpBorder[3] = 3;
 
 
         return tmpBorder;
 
     }
     private static void clearBoard(){
-        for (int i = 0; i < 9; i++) { // i is column
-            for (int x = 0; x < 9; x++) { // x is row
+
+        // function to clear the board
+
+        int iwLW = iLW*iLW;
+
+        for (int i = 0; i < iwLW; i++) { // i is column
+            for (int x = 0; x < iwLW; x++) { // x is row
                 jt[i][x].setText("");
                 jt[i][x].setBackground(Color.white);
             }
@@ -110,18 +123,26 @@ public class SolverMain {
     }
     private static void solveToGUI() {
 
+        // output the solved sudoku the gui
+
+        int iwLW = iLW*iLW;
+
         int[][] b = ssc.returnBoard();
 
-        for (int i = 0; i < 9; i++) { // i is column
-            for (int x = 0; x < 9; x++) { // x is row
+        for (int i = 0; i < iwLW; i++) { // i is column
+            for (int x = 0; x < iwLW; x++) { // x is row
                 jt[i][x].setText(String.valueOf(b[i][x]));
             }
         }
     }
 
     private static void loadBoard() {
-        for (int i = 0; i < 9; i++) { // i is column
-            for (int x = 0; x < 9; x++) { // x is row
+
+        // load the numbers the user has entered on the gui to the board to be solved
+
+        int iwLW = iLW*iLW;
+        for (int i = 0; i < iwLW; i++) { // i is column
+            for (int x = 0; x < iwLW; x++) { // x is row
                 if (jt[i][x].getText().isEmpty()) {
                     board[i][x] = 0;
                 } else {
